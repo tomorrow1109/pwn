@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ---- build stage: compile the challenge binary ----
 FROM debian:bookworm AS build
 RUN apt-get update \
