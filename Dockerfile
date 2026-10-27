@@ -17,7 +17,9 @@ RUN apt-get update \
 WORKDIR /pwn
 COPY --from=build /src/vuln /pwn/vuln
 COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod 0755 /entrypoint.sh /pwn/vuln && chown -R root:root /pwn
+RUN chmod 0755 /entrypoint.sh /pwn/vuln \
+    && chown -R root:root /pwn \
+    && touch /flag && chown pwn:pwn /flag && chmod 600 /flag
 
 USER pwn
 EXPOSE 9999
