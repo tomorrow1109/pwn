@@ -1,0 +1,20 @@
+//! ret2win online challenge checker.
+//!
+//! * `environ()` 在每个用户启动靶机时执行，返回的 map 会直接变成容器环境变量，
+//!   镜像里的 entrypoint.sh 会把 $FLAG 写进 /flag。
+//! * `check()` 负责校验提交的 flag。
+
+pub async fn environ(bucket, user, team) {
+  Ok(#{
+    "FLAG": `flag{ret2win_${user.account}}`,
+  })
+}
+
+pub async fn check(bucket, user, team, submission) {
+  let expected = `flag{ret2win_${user.account}}`;
+  if submission.content == expected {
+    Ok((true, "Correct!", None))
+  } else {
+    Ok((false, "Incorrect!", None))
+  }
+}
