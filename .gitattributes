@@ -1,0 +1,17 @@
+# 统一使用 LF：仓库会在 Windows（服务器）上被 clone 并 docker build，
+# CRLF 会破坏 entrypoint.sh 的 shebang 与 Makefile 的制表符。
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.c     text eol=lf
+*.h     text eol=lf
+*.py    text eol=lf
+*.toml  text eol=lf
+*.rx    text eol=lf
+*.md    text eol=lf
+Dockerfile text eol=lf
+Makefile   text eol=lf
+
+*.png binary
+*.jpg binary
+*.tar binary
