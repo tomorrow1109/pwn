@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 /*
@@ -19,7 +20,11 @@ __attribute__((noinline)) void win(void) {
     return;
   }
   if (fgets(buf, sizeof(buf), fp)) {
-    printf("[+] %s", buf);
+    /* Use write() instead of printf(): stdio pulls in SSE code paths that
+     * fault on a 8-byte-misaligned stack right after a plain `ret` into
+     * win(). Keeping this simple means a bare ret2win payload works. */
+    write(1, "[+] ", 4);
+    write(1, buf, strlen(buf));
   }
   fclose(fp);
 }
